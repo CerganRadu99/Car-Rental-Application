@@ -3,112 +3,127 @@
 @{
     ViewData["Title"] = "Details";
 }
+<link rel="stylesheet" href="~/css/car-details.css">
 
-<h1>Details</h1>
 
 <div>
-    <h4>Car</h4>
+    <br />
+    <h2 style="text-align:center; color: #24305E">Car Details</h2>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Plate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Plate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Motorization)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Motorization)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Availability)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Availability)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DealsAppearance)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DealsAppearance)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Seats)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Seats)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Mileage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Mileage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RentedCounter)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RentedCounter)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DoorsNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DoorsNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TimeBorrowed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TimeBorrowed)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CarId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Plate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Plate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Class)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Class)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Brand)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Brand)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Model)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Model)
+                </dd>
+            </div>
+            <div class="col-3">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Location)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Location)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Motorization)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Motorization)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Year)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+            </div>
+            <div class="col-3">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Availability)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Availability)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.DealsAppearance)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DealsAppearance)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Color)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Color)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Seats)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Seats)
+                </dd>
+            </div>
+            <div class="col-3">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Mileage)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Mileage)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.RentedCounter)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.RentedCounter)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.DoorsNumber)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DoorsNumber)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TimeBorrowed)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TimeBorrowed)
+                </dd>
+            </div>
+        </div>
+    </div>
+    <div>
+        <br />
+        <a asp-action="Edit" asp-route-id="@Model.CarId">
+            <img src="~/Images/pencil.png" style="width:4%" alt="Edit">
+        </a> 
+        <a asp-action="Index">
+            <img src="~/Images/back-arrow.png" style="width:4%; margin-left:15px" alt="Back to List">
+        </a>
+    </div>

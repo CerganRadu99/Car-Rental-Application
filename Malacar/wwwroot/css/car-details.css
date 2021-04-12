@@ -1,0 +1,17 @@
+﻿hr {
+    border-top: 15px dotted #F76C6C;
+    width: 5%;
+}
+.container-fluid {
+    background-color: #24305E;
+    border: 2px solid #F76C6C;
+    border-radius: 30px;
+    color: #F8E9A1;
+    padding: 20px 10px;
+}
+
+.container-fluid .col-sm-2 {
+    color: #F76C6C;
+}
+
+
