@@ -46,4 +46,6 @@ table {
     border: 3px solid;
     border-radius: 20px !important;
     background-color: #24305E;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
+

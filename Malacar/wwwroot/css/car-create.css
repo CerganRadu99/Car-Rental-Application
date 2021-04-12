@@ -1,0 +1,31 @@
+﻿.container-fluid {
+    background-color: #24305E;
+    border: 2px solid #F76C6C;
+    border-radius: 30px;
+    color: #F8E9A1;
+    padding: 20px 10px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.container-fluid .btn-primary {
+    color: #F76C6C !important;
+    background-color: #F8E9A1 !important;
+    border-color: #1861ac;
+    border-radius: 10px !important;
+    width: 30%;
+    font-weight: bold;
+    font-size:24px;
+}
+
+.container-fluid .btn-primary:hover {
+    color: #F8E9A1 !important;
+    background-color: #F76C6C !important;
+    border-color: red;
+}
+hr {
+    border-top: 15px dotted #F76C6C;
+    width: 5%;
+}
+h2 {
+    color: #24305E;
+    text-align: center;
+}
