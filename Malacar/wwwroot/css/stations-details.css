@@ -12,6 +12,10 @@
    
 }
 
-    .container-fluid .col-sm-2 {
-        color: #F76C6C;
-    }
+.container-fluid .col-sm-2 {
+    color: #F76C6C;
+}
+
+.colorCol {
+    color: #F76C6C;
+}
