@@ -1,0 +1,39 @@
+﻿@model Malacar.Models.Address
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<link rel="stylesheet" href="~/css/station-delete.css">
+<h3>Delete Address</h3>
+<hr />
+<div>
+    <div class="container-fluid">
+        <dl class="row">
+            <dt class="col-sm-12 pinkC">
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
+            <dd class="col-sm-12">
+                @Html.DisplayFor(model => model.Street)
+            </dd>
+            <dt class="col-sm-12 pinkC">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-12">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt class="col-sm-12 pinkC">
+                @Html.DisplayNameFor(model => model.County)
+            </dt>
+            <dd class="col-sm-12">
+                @Html.DisplayFor(model => model.County)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="AddressId" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+    <a asp-action="Index"><img src="~/Images/back-arrow.png" style="width:3%; margin-left: 15%" alt="Back to List"></a>
+</div>
