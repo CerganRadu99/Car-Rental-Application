@@ -1,4 +1,4 @@
-﻿using Malacar.Interfaces;
+using Malacar.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +8,16 @@ namespace Malacar.Services
 {
     public class BaseService
     {
-        protected IRepositoryWrapper repositoryWrapper;
+        protected IRepositoryWrapper RepositoryWrapper;
 
-        public BaseService(IRepositoryWrapper iRepositoryWrapper)
+        public BaseService(IRepositoryWrapper RepositoryWrapper)
         {
-            repositoryWrapper = iRepositoryWrapper;
+            this.RepositoryWrapper = RepositoryWrapper;
         }
 
         public void Save()
         {
-            repositoryWrapper.Save();
+            RepositoryWrapper.Save();
         }
     }
 }

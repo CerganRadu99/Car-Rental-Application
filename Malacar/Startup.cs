@@ -30,6 +30,10 @@ namespace Malacar
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<PaymentService>();
+            services.AddScoped<RentalService>();
+            services.AddScoped<UserAddressService>();
+            services.AddScoped<UserService>();
             services.AddScoped<CarService>();
             services.AddScoped<StationService>();
             services.AddScoped<CarStationService>();
