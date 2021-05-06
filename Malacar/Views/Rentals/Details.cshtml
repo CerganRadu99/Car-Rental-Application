@@ -1,0 +1,61 @@
+﻿@model Malacar.Models.Rental
+
+@{
+    ViewData["Title"] = "Details";
+}
+<link rel="stylesheet" href="~/css/stations-details.css">
+
+<br />
+<h2 style="text-align:center; color: #24305E">Rental Details</h2>
+<hr />
+<div class="container-fluid" style="text-align:center;">
+    <div class="row" style="color:#db6400;">
+        <div class="col-4">
+            @Html.DisplayNameFor(model => model.Description)
+        </div>
+        <div class="col-4">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </div>
+        <div class="col-4">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+        <div class="col-4">
+            @Html.DisplayFor(model => model.StartDate)
+        </div>
+        <div class="col-4">
+            @Html.DisplayFor(model => model.EndDate)
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-6 colorCol">
+            @Html.DisplayNameFor(model => model.PickUpLocation)
+        </div>
+        <div class="col-6 colorCol">
+            @Html.DisplayNameFor(model => model.DropOffLocation)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            @Html.DisplayFor(model => model.PickUpLocation)
+        </div>
+        <div class="col-6">
+            @Html.DisplayFor(model => model.DropOffLocation)
+        </div>
+    </div>
+</div>
+
+<div>
+
+    <br />
+    <a asp-action="Edit" asp-route-id="@Model.RentalId">
+        <img src="~/Images/pencil.png" style="width:4%" alt="Edit">
+    </a>
+    <a asp-action="Index">
+        <img src="~/Images/back-arrow.png" style="width:4%; margin-left:15px" alt="Back to List">
+    </a>
+</div>

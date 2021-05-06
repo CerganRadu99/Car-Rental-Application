@@ -33,6 +33,14 @@ namespace Malacar
             services.AddScoped<AdminService>();
             services.AddScoped<AddressService>();
             services.AddScoped<AdminAddressService>();
+            services.AddScoped<PaymentService>();
+            services.AddScoped<RentalService>();
+            services.AddScoped<UserAddressService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<CarService>();
+            services.AddScoped<StationService>();
+            services.AddScoped<CarStationService>();
+            services.AddScoped<StationAddressService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

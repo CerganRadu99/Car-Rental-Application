@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Malacar.Models;
+﻿using Malacar.Models;
 using Malacar.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
 
 namespace Malacar.Controllers
 {
-    public class StationsController : Controller
+    public class RentalsController : Controller
     {
-        private readonly StationService _stationService;
-
-        public StationsController(StationService stationService)
+        private readonly RentalService _rentalService;
+        public RentalsController(RentalService rentalService)
         {
-            _stationService = stationService;
+            _rentalService = rentalService;
         }
 
-        // GET: Stations
+        // GET: Rentals
         public IActionResult Index()
         {
-            var stations = _stationService.GetStations();
-            return View(stations);
+            var rentals = _rentalService.GetRentals();
+            return View(rentals);
         }
 
-        // GET: Stations/Details/5
+        // GET: Rentals/Details/5
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -34,38 +30,38 @@ namespace Malacar.Controllers
                 return NotFound();
             }
 
-            var station = _stationService.GetStations().FirstOrDefault(m => m.StationId == id);
-            if (station == null)
+            var rental = _rentalService.GetRentals().FirstOrDefault(m => m.RentalId == id);
+            if (rental == null)
             {
                 return NotFound();
             }
 
-            return View(station);
+            return View(rental);
         }
 
-        // GET: Stations/Create
+        // GET: Rentals/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stations/Create
+        // POST: Rentals/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("StationId,Name,NumberOfVehicles,NumberOfEmployees")] Station station)
+        public IActionResult Create([Bind("RentalId,Description,StartDate,EndDate,PickUpLocation,DropOffLocation")] Rental rental)
         {
             if (ModelState.IsValid)
             {
-                _stationService.AddStation(station);
-                _stationService.Save();
+                _rentalService.AddRental(rental);
+                _rentalService.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(station);
+            return View(rental);
         }
 
-        // GET: Stations/Edit/5
+        // GET: Rentals/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,22 +69,22 @@ namespace Malacar.Controllers
                 return NotFound();
             }
 
-            var station = _stationService.GetStations().FirstOrDefault(m => m.StationId == id);
-            if (station == null)
+            var rental = _rentalService.GetRentals().FirstOrDefault(m => m.RentalId == id);
+            if (rental == null)
             {
                 return NotFound();
             }
-            return View(station);
+            return View(rental);
         }
 
-        // POST: Stations/Edit/5
+        // POST: Rentals/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("StationId,Name,NumberOfVehicles,NumberOfEmployees")] Station station)
+        public IActionResult Edit(int id, [Bind("RentalId,Description,StartDate,EndDate,PickUpLocation,DropOffLocation")] Rental rental)
         {
-            if (id != station.StationId)
+            if (id != rental.RentalId)
             {
                 return NotFound();
             }
@@ -97,12 +93,12 @@ namespace Malacar.Controllers
             {
                 try
                 {
-                    _stationService.UpdateStation(station);
-                    _stationService.Save();
+                    _rentalService.UpdateRental(rental);
+                    _rentalService.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StationExists(station.StationId))
+                    if (!RentalExists(rental.RentalId))
                     {
                         return NotFound();
                     }
@@ -113,10 +109,10 @@ namespace Malacar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(station);
+            return View(rental);
         }
 
-        // GET: Stations/Delete/5
+        // GET: Rentals/Delete/5
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,29 +120,29 @@ namespace Malacar.Controllers
                 return NotFound();
             }
 
-            var station = _stationService.GetStations().FirstOrDefault(m => m.StationId == id);
-            if (station == null)
+            var rental = _rentalService.GetRentals().FirstOrDefault(m => m.RentalId == id);
+            if (rental == null)
             {
                 return NotFound();
             }
 
-            return View(station);
+            return View(rental);
         }
 
-        // POST: Stations/Delete/5
+        // POST: Rentals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var station = _stationService.GetStationsByCondition(b => b.StationId == id).FirstOrDefault();
-            _stationService.DeleteStation(station);
-            _stationService.Save();
+            var rental = _rentalService.GetRentalsByCondition(b => b.RentalId == id).FirstOrDefault();
+            _rentalService.DeleteRental(rental);
+            _rentalService.Save();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StationExists(int id)
+        private bool RentalExists(int id)
         {
-            return _stationService.GetStations().Any(e => e.StationId == id);
+            return _rentalService.GetRentals().Any(e => e.RentalId == id);
         }
     }
 }

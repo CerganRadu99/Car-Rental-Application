@@ -1,4 +1,4 @@
-﻿using Malacar.Interfaces;
+using Malacar.Interfaces;
 using Malacar.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,6 +27,7 @@ namespace Malacar.Repositories
         {
             return this.CarContext.Set<T>().Where(expression).AsNoTracking();
         }
+
         public void Create(T entity)
         {
             this.CarContext.Set<T>().Add(entity);
