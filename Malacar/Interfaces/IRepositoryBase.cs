@@ -1,6 +1,8 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Malacar.Interfaces
 {
@@ -15,6 +17,5 @@ namespace Malacar.Interfaces
         void Update(T entity);
 
         void Delete(T entity);
-
     }
 }

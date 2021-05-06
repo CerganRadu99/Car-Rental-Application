@@ -1,19 +1,21 @@
-﻿using Malacar.Interfaces;
+using Malacar.Interfaces;
 using Malacar.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Malacar.Repositories
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class 
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         protected CarContext CarContext { get; set; }
 
-        public RepositoryBase(CarContext CarContext)
+        public RepositoryBase(CarContext carcontext)
         {
-            this.CarContext = CarContext;
+            this.CarContext = carcontext;
         }
 
         public IQueryable<T> FindAll()
@@ -31,14 +33,14 @@ namespace Malacar.Repositories
             this.CarContext.Set<T>().Add(entity);
         }
 
-        public void Update(T entity)
-        {
-            this.CarContext.Set<T>().Update(entity);
-        }
-
         public void Delete(T entity)
         {
             this.CarContext.Set<T>().Remove(entity);
+        }
+
+        public void Update(T entity)
+        {
+            this.CarContext.Set<T>().Update(entity);
         }
     }
 }

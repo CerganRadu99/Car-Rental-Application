@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Malacar.Models;
+using Malacar.ViewModels;
 
 namespace Malacar.Controllers
 {
@@ -45,7 +46,10 @@ namespace Malacar.Controllers
         // GET: Cars/Create
         public IActionResult Create()
         {
-            return View();
+            var addModel = new AddCarViewModel {
+                Stations = _context.Stations.ToList<Station>()
+            };
+            return View(addModel);
         }
 
         // POST: Cars/Create
@@ -53,11 +57,25 @@ namespace Malacar.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,Plate,Class,Brand,Model,Price,Location,Motorization,Year,Availability,DealsAppearance,Color,Seats,Mileage,RentedCounter,DoorsNumber,TimeBorrowed")] Car car)
+        public async Task<IActionResult> Create([FromForm] AddCarViewModel car)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(car);
+                //_context.Add(car);
+                Car newCar = new Car {
+                    Brand = car.Brand,
+                    Class = car.Class,
+                    Rentals = new List<Rental>(),
+                    CarStations = new List<CarStation>()
+                };
+                Station selectedStation = _context.Stations.SingleOrDefault(station => station.StationId == car.SelectedStation);
+                CarStation newCarStation = new CarStation
+                {
+                    Car = newCar,
+                    Station = selectedStation
+                };
+                newCar.CarStations.Add(newCarStation);
+                _context.Add(newCar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

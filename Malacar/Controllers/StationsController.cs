@@ -6,34 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Malacar.Models;
+using Malacar.Services;
 
 namespace Malacar.Controllers
 {
     public class StationsController : Controller
     {
-        private readonly CarContext _context;
+        private readonly StationService _stationService;
 
-        public StationsController(CarContext context)
+        public StationsController(StationService stationService)
         {
-            _context = context;
+            _stationService = stationService;
         }
 
         // GET: Stations
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Stations.ToListAsync());
+            var stations = _stationService.GetStations();
+            return View(stations);
         }
 
         // GET: Stations/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var station = await _context.Stations
-                .FirstOrDefaultAsync(m => m.StationId == id);
+            var station = _stationService.GetStations().FirstOrDefault(m => m.StationId == id);
             if (station == null)
             {
                 return NotFound();
@@ -53,26 +54,26 @@ namespace Malacar.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StationId,Name,NumberOfVehicles,NumberOfEmployees")] Station station)
+        public IActionResult Create([Bind("StationId,Name,NumberOfVehicles,NumberOfEmployees")] Station station)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(station);
-                await _context.SaveChangesAsync();
+                _stationService.AddStation(station);
+                _stationService.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(station);
         }
 
         // GET: Stations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var station = await _context.Stations.FindAsync(id);
+            var station = _stationService.GetStations().FirstOrDefault(m => m.StationId == id);
             if (station == null)
             {
                 return NotFound();
@@ -85,7 +86,7 @@ namespace Malacar.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StationId,Name,NumberOfVehicles,NumberOfEmployees")] Station station)
+        public IActionResult Edit(int id, [Bind("StationId,Name,NumberOfVehicles,NumberOfEmployees")] Station station)
         {
             if (id != station.StationId)
             {
@@ -96,8 +97,8 @@ namespace Malacar.Controllers
             {
                 try
                 {
-                    _context.Update(station);
-                    await _context.SaveChangesAsync();
+                    _stationService.UpdateStation(station);
+                    _stationService.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,15 +117,14 @@ namespace Malacar.Controllers
         }
 
         // GET: Stations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var station = await _context.Stations
-                .FirstOrDefaultAsync(m => m.StationId == id);
+            var station = _stationService.GetStations().FirstOrDefault(m => m.StationId == id);
             if (station == null)
             {
                 return NotFound();
@@ -136,17 +136,17 @@ namespace Malacar.Controllers
         // POST: Stations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var station = await _context.Stations.FindAsync(id);
-            _context.Stations.Remove(station);
-            await _context.SaveChangesAsync();
+            var station = _stationService.GetStationsByCondition(b => b.StationId == id).FirstOrDefault();
+            _stationService.DeleteStation(station);
+            _stationService.Save();
             return RedirectToAction(nameof(Index));
         }
 
         private bool StationExists(int id)
         {
-            return _context.Stations.Any(e => e.StationId == id);
+            return _stationService.GetStations().Any(e => e.StationId == id);
         }
     }
 }
