@@ -7,6 +7,12 @@ namespace Malacar.Interfaces
 {
     public interface IRepositoryWrapper
     {
+        IAdminRepository AdminRepository { get; }
+      
+        IAddressRepository AddressRepository { get; }
+      
+        IAdminAddressRepository AdminAddressRepository { get; }
+      
         IPaymentRepository PaymentRepository { get; }
 
         IRentalRepository RentalRepository { get; }
