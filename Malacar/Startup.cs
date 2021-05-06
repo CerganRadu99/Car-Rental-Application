@@ -1,4 +1,7 @@
+using Malacar.Interfaces;
 using Malacar.Models;
+using Malacar.Repositories;
+using Malacar.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +29,11 @@ namespace Malacar
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<CarService>();
+            services.AddScoped<StationService>();
+            services.AddScoped<CarStationService>();
+            services.AddScoped<StationAddressService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
