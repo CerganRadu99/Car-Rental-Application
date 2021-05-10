@@ -4,6 +4,7 @@ using Malacar.Repositories;
 using Malacar.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +26,15 @@ namespace Malacar
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<CarContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<CarContext>();
+
+            services.AddDbContext<CarContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<AdminService>();
             services.AddScoped<AddressService>();
@@ -61,6 +67,7 @@ namespace Malacar
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -68,6 +75,8 @@ namespace Malacar
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Malacar.Models;
 using Malacar.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Malacar.Controllers
 {
+    [Authorize(Roles = "Administrator,User")]
     public class CarsController : Controller
     {
         private readonly CarContext _context;
@@ -20,12 +22,41 @@ namespace Malacar.Controllers
         }
 
         // GET: Cars
-        public async Task<IActionResult> Index()
+        [Authorize(Roles = "Administrator,User")]
+        public async Task<IActionResult> Index(string sortOrder, string searchString, int priceSearch)
         {
-            return View(await _context.Cars.ToListAsync());
+            ViewData["BrandSortParm"] = String.IsNullOrEmpty(sortOrder) ? "brand_desc" : "";
+            ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
+
+            var cars = from s in _context.Cars
+                       select s;
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                cars = cars.Where(s => s.Brand.Contains(searchString)
+                || s.Plate.Contains(searchString)|| s.Motorization.Contains(searchString)||s.Model.Contains(searchString)||s.Color.Contains(searchString));
+            }
+
+            switch(sortOrder)
+            {
+                case "brand_desc":
+                    cars = cars.OrderByDescending(s => s.Brand);
+                    break;
+                case "Price":
+                    cars = cars.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    cars = cars.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    cars = cars.OrderBy(s => s.Brand);
+                    break;
+            }
+            return View(await cars.AsNoTracking().ToListAsync());
         }
 
         // GET: Cars/Details/5
+        [Authorize(Roles = "Administrator,User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +75,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Cars/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             var addModel = new AddCarViewModel {
@@ -62,7 +94,8 @@ namespace Malacar.Controllers
             if (ModelState.IsValid)
             {
                 //_context.Add(car);
-                Car newCar = new Car {
+                Car newCar = new Car
+                {
                     Brand = car.Brand,
                     Class = car.Class,
                     Rentals = new List<Rental>(),
@@ -76,6 +109,7 @@ namespace Malacar.Controllers
                 };
                 newCar.CarStations.Add(newCarStation);
                 _context.Add(newCar);
+                //_context.Add(newCarStation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -83,6 +117,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Cars/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -134,6 +169,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Cars/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

@@ -15,27 +15,27 @@ namespace Malacar.Services
 
         }
 
-        public List<User> GetUsers()
+        public List<AppUser> GetUsers()
         {
             return RepositoryWrapper.UserRepository.FindAll().ToList();
         }
 
-        public List<User> GetUsersByCondition(Expression<Func<User, bool>> expression)
+        public List<AppUser> GetUsersByCondition(Expression<Func<AppUser, bool>> expression)
         {
             return RepositoryWrapper.UserRepository.FindByCondition(expression).ToList();
         }
 
-        public void AddUser(User User)
+        public void AddUser(AppUser User)
         {
             RepositoryWrapper.UserRepository.Create(User);
         }
 
-        public void UpdateUser(User User)
+        public void UpdateUser(AppUser User)
         {
             RepositoryWrapper.UserRepository.Update(User);
         }
 
-        public void DeleteUser(User User)
+        public void DeleteUser(AppUser User)
         {
             RepositoryWrapper.UserRepository.Delete(User);
         }

@@ -21,6 +21,6 @@ namespace Malacar.Models
 
         public Car Car { get; set; }
 
-        public User User { get; set; }
+        public AppUser User { get; set; }
     }
 }

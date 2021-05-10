@@ -3,7 +3,7 @@ using Malacar.Models;
 
 namespace Malacar.Repositories
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepository : RepositoryBase<AppUser>, IUserRepository
     {
         public UserRepository(CarContext CarContext) : base(CarContext)
         {
