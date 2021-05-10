@@ -17,27 +17,27 @@ namespace Malacar.Services
 
         public List<StationAddress> GetStationAddresses()
         {
-            return repositoryWrapper.StationAddressRepository.FindAll().ToList();
+            return RepositoryWrapper.StationAddressRepository.FindAll().ToList();
         }
 
         public List<StationAddress> GetStationAddressesByCondition(Expression<Func<StationAddress, bool>> expression)
         {
-            return repositoryWrapper.StationAddressRepository.FindByCondition(expression).ToList();
+            return RepositoryWrapper.StationAddressRepository.FindByCondition(expression).ToList();
         }
 
         public void AddStationAddress(StationAddress stationaddress)
         {
-            repositoryWrapper.StationAddressRepository.Create(stationaddress);
+            RepositoryWrapper.StationAddressRepository.Create(stationaddress);
         }
 
         public void UpdateStationAddress(StationAddress stationaddress)
         {
-            repositoryWrapper.StationAddressRepository.Update(stationaddress);
+            RepositoryWrapper.StationAddressRepository.Update(stationaddress);
         }
 
         public void DeleteStationAddress(StationAddress stationaddress)
         {
-            repositoryWrapper.StationAddressRepository.Delete(stationaddress);
+            RepositoryWrapper.StationAddressRepository.Delete(stationaddress);
         }
     }
 }

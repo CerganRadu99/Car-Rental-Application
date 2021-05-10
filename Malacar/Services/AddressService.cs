@@ -1,5 +1,6 @@
 ﻿using Malacar.Interfaces;
 using Malacar.Models;
+using Malacar.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,27 +18,27 @@ namespace Malacar.Services
 
         public List<Address> GetAddresses()
         {
-            return repositoryWrapper.AddressRepository.FindAll().ToList();
+            return RepositoryWrapper.AddressRepository.FindAll().ToList();
         }
 
         public List<Address> GetAddressesByCondition(Expression<Func<Address, bool>> expression)
         {
-            return repositoryWrapper.AddressRepository.FindByCondition(expression).ToList();
+            return RepositoryWrapper.AddressRepository.FindByCondition(expression).ToList();
         }
 
         public void AddAddress(Address address)
         {
-            repositoryWrapper.AddressRepository.Create(address);
+            RepositoryWrapper.AddressRepository.Create(address);
         }
 
         public void UpdateAddress(Address address)
         {
-            repositoryWrapper.AddressRepository.Update(address);
+            RepositoryWrapper.AddressRepository.Update(address);
         }
 
         public void DeleteAddress(Address address)
         {
-            repositoryWrapper.AddressRepository.Delete(address);
+            RepositoryWrapper.AddressRepository.Delete(address);
         }
     }
 }
