@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var photoPath = "~/Images/" + (Model.ImagePath ?? "noimage.jpg");
 }
 <link rel="stylesheet" href="~/css/car-details.css">
 
@@ -91,6 +92,10 @@
                 </dd>
             </div>
             <div class="col-3">
+                <h1>Photo</h1>
+                <dd class="col-sm-10">
+                    <img src ="@photoPath" asp-append-version="true"/>
+                </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.Mileage)
                 </dt>

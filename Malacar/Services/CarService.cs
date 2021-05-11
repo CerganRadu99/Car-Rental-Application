@@ -17,27 +17,27 @@ namespace Malacar.Services
 
         public List<Car> GetCars()
         {
-            return repositoryWrapper.CarRepository.FindAll().ToList();
+            return RepositoryWrapper.CarRepository.FindAll().ToList();
         }
 
         public List<Car> GetCarsByCondition(Expression<Func<Car, bool>> expression)
         {
-            return repositoryWrapper.CarRepository.FindByCondition(expression).ToList();
+            return RepositoryWrapper.CarRepository.FindByCondition(expression).ToList();
         }
 
         public void AddCar(Car car)
         {
-            repositoryWrapper.CarRepository.Create(car);
+            RepositoryWrapper.CarRepository.Create(car);
         }
 
         public void UpdateCar(Car car)
         {
-            repositoryWrapper.CarRepository.Update(car);
+            RepositoryWrapper.CarRepository.Update(car);
         }
 
         public void DeleteCar(Car car)
         {
-            repositoryWrapper.CarRepository.Delete(car);
+            RepositoryWrapper.CarRepository.Delete(car);
         }
     }
 }

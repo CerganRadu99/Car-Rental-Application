@@ -7,34 +7,43 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Malacar.Models;
 using Malacar.ViewModels;
+using Malacar.Services;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Malacar.Controllers
 {
     public class CarsController : Controller
     {
-        private readonly CarContext _context;
+        private readonly CarService _carService;
+        private readonly StationService _stationService;
+        private readonly CarStationService _carStationService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public CarsController(CarContext context)
+        public CarsController(CarService CarService, StationService StationService, CarStationService CarStationService, IHostingEnvironment hostingEnvironment)
         {
-            _context = context;
+            _carService = CarService;
+            _stationService = StationService;
+            _carStationService = CarStationService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Cars
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Cars.ToListAsync());
+            var cars = _carService.GetCars();
+            return View(cars);
         }
 
         // GET: Cars/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.CarId == id);
+            var car = _carService.GetCars().FirstOrDefault(m => m.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -46,8 +55,9 @@ namespace Malacar.Controllers
         // GET: Cars/Create
         public IActionResult Create()
         {
-            var addModel = new AddCarViewModel {
-                Stations = _context.Stations.ToList<Station>()
+            var addModel = new AddCarViewModel
+            {
+                Stations = _stationService.GetStations().ToList<Station>()
             };
             return View(addModel);
         }
@@ -57,40 +67,70 @@ namespace Malacar.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] AddCarViewModel car)
+        public IActionResult Create([FromForm] AddCarViewModel car)
         {
+            
             if (ModelState.IsValid)
             {
-                //_context.Add(car);
-                Car newCar = new Car {
+                string uniqueFileName = null;
+                if(car.Photo != null)
+                {
+                   string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                   uniqueFileName =  Guid.NewGuid().ToString() + "_" + car.Photo.FileName;
+                   string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    car.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    
+                }
+                Car newCar = new Car
+                {
+                    Plate = car.Plate,
+                    Model = car.Model,
+                    Price = car.Price,
+                    Location = car.Location,
+                    Motorization = car.Motorization,
+                    Year = car.Year,
+                    Availability = car.Availability,
+                    DealsAppearance = car.DealsAppearance,
+                    Color = car.Color,
+                    Seats = car.Seats,
+                    Mileage = car.Mileage,
+                    RentedCounter = car.RentedCounter,
+                    DoorsNumber = car.DoorsNumber,
+                    TimeBorrowed = car.TimeBorrowed,
                     Brand = car.Brand,
                     Class = car.Class,
                     Rentals = new List<Rental>(),
-                    CarStations = new List<CarStation>()
+                    CarStations = new List<CarStation>(),
+                    ImagePath = uniqueFileName
                 };
-                Station selectedStation = _context.Stations.SingleOrDefault(station => station.StationId == car.SelectedStation);
-                CarStation newCarStation = new CarStation
+                Station selectedStation = _stationService.GetStations().SingleOrDefault(station => station.StationId == car.SelectedStation);
+                _carService.AddCar(newCar);
+                _carService.Save();
+                var myCar = _carService.GetCars().LastOrDefault();
+                if (myCar != null)
                 {
-                    Car = newCar,
-                    Station = selectedStation
-                };
-                newCar.CarStations.Add(newCarStation);
-                _context.Add(newCar);
-                await _context.SaveChangesAsync();
+                    _carStationService.AddCarStation(new CarStation
+                    {
+                        CarID = myCar.CarId,
+                        StationId = selectedStation.StationId,
+                        StationaryTime = 0
+                    });
+                    _carStationService.Save();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(car);
         }
 
         // GET: Cars/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var car = await _context.Cars.FindAsync(id);
+            var car = _carService.GetCars().FirstOrDefault(m => m.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -103,7 +143,7 @@ namespace Malacar.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,Plate,Class,Brand,Model,Price,Location,Motorization,Year,Availability,DealsAppearance,Color,Seats,Mileage,RentedCounter,DoorsNumber,TimeBorrowed")] Car car)
+        public IActionResult Edit(int id, [Bind("CarId,Plate,Class,Brand,Model,Price,Location,Motorization,Year,Availability,DealsAppearance,Color,Seats,Mileage,RentedCounter,DoorsNumber,TimeBorrowed, ImagePath")] Car car)
         {
             if (id != car.CarId)
             {
@@ -114,8 +154,8 @@ namespace Malacar.Controllers
             {
                 try
                 {
-                    _context.Update(car);
-                    await _context.SaveChangesAsync();
+                    _carService.UpdateCar(car);
+                    _carService.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -134,15 +174,14 @@ namespace Malacar.Controllers
         }
 
         // GET: Cars/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.CarId == id);
+            var car = _carService.GetCars().FirstOrDefault(m => m.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -151,20 +190,21 @@ namespace Malacar.Controllers
             return View(car);
         }
 
-        // POST: Cars/Delete/5
+        // POST: Rentals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var car = await _context.Cars.FindAsync(id);
-            _context.Cars.Remove(car);
-            await _context.SaveChangesAsync();
+            var car = _carService.GetCarsByCondition(b => b.CarId == id).FirstOrDefault();
+            _carService.DeleteCar(car);
+            _carService.Save();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CarExists(int id)
         {
-            return _context.Cars.Any(e => e.CarId == id);
+            return _carService.GetCars().Any(e => e.CarId == id);
         }
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -42,8 +43,27 @@ namespace Malacar.Models
 
         public double TimeBorrowed { get; set; }
 
+        public string ImagePath { get; set; }
+
         public ICollection<Rental> Rentals { get; set; }
 
         public ICollection<CarStation> CarStations { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Car car &&
+                   Mileage == car.Mileage &&
+                   RentedCounter == car.RentedCounter &&
+                   DoorsNumber == car.DoorsNumber &&
+                   TimeBorrowed == car.TimeBorrowed &&
+                   ImagePath == car.ImagePath &&
+                   EqualityComparer<ICollection<Rental>>.Default.Equals(Rentals, car.Rentals) &&
+                   EqualityComparer<ICollection<CarStation>>.Default.Equals(CarStations, car.CarStations);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Mileage, RentedCounter, DoorsNumber, TimeBorrowed, ImagePath, Rentals, CarStations);
+        }
     }
 }

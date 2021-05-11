@@ -28,6 +28,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
 
                 <th></th>
             </tr>
@@ -35,6 +38,9 @@
         <tbody>
             @foreach (var item in Model)
             {
+                
+                var photoPath = "~/Images/" + (item.ImagePath ?? "noimage.jpg");
+              
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Plate)
@@ -50,6 +56,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <img src="@photoPath" asp-append-version="true" />
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.CarId"><img class="imgBtn" src="~/Images/pencil.png"></a>

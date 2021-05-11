@@ -17,27 +17,27 @@ namespace Malacar.Services
 
         public List<AdminAddress> GetAdminAddresses()
         {
-            return repositoryWrapper.AdminAddressRepository.FindAll().ToList();
+            return RepositoryWrapper.AdminAddressRepository.FindAll().ToList();
         }
 
         public List<AdminAddress> GetAdminAddressesByCondition(Expression<Func<AdminAddress, bool>> expression)
         {
-            return repositoryWrapper.AdminAddressRepository.FindByCondition(expression).ToList();
+            return RepositoryWrapper.AdminAddressRepository.FindByCondition(expression).ToList();
         }
 
         public void AddAdminAddress(AdminAddress adminAddress)
         {
-            repositoryWrapper.AdminAddressRepository.Create(adminAddress);
+            RepositoryWrapper.AdminAddressRepository.Create(adminAddress);
         }
 
         public void UpdateAdminAddress(AdminAddress adminAddress)
         {
-            repositoryWrapper.AdminAddressRepository.Update(adminAddress);
+            RepositoryWrapper.AdminAddressRepository.Update(adminAddress);
         }
 
         public void DeleteAdminAddress(AdminAddress adminAddress)
         {
-            repositoryWrapper.AdminAddressRepository.Delete(adminAddress);
+            RepositoryWrapper.AdminAddressRepository.Delete(adminAddress);
         }
     }
 }
