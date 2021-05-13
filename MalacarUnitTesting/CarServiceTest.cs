@@ -52,6 +52,7 @@ namespace MalacarUnitTesting
         }
 
         [TestMethod]
+        // testGetCars_ReturnAllCarsFromDatabase
         public void TestGetCars_HappyFlow()
         {
             //arrange
@@ -71,6 +72,7 @@ namespace MalacarUnitTesting
         }
 
         [TestMethod]
+        //TestGetCarsByCondition_ReturnOnlyTheCarsWithCondition
         public void TestGetCarsByCondition_HappyFlow()
         {
             //arrange
@@ -145,6 +147,7 @@ namespace MalacarUnitTesting
             carService.Save();
             
             //modify car
+            //modific toate campurile
             carToEdit.Plate = "B 01 WWW";
 
             //act
