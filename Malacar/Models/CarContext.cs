@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Malacar.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Malacar.Models
 {
-    public class CarContext : DbContext
+    public class CarContext : IdentityDbContext<AppUser>
     {
         public CarContext(DbContextOptions<CarContext> options):base(options)
         {

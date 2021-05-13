@@ -41,6 +41,17 @@ a {
     background-color: #F76C6C !important;
     border-color: red;
 }
+.butCreate {
+    color: #F76C6C !important;
+    background-color: #F8E9A1 !important;
+    border-color: #1861ac;
+    border-radius: 10px !important;
+}
+    .butCreate:hover {
+        color: #F8E9A1 !important;
+        background-color: #F76C6C !important;
+        border-color: red;
+    }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #F8E9A1;

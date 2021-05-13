@@ -4,6 +4,7 @@ using Malacar.Repositories;
 using Malacar.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +26,15 @@ namespace Malacar
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<CarContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<CarContext>();
+
+            services.AddDbContext<CarContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<AdminService>();
             services.AddScoped<AddressService>();
@@ -41,6 +47,11 @@ namespace Malacar
             services.AddScoped<StationService>();
             services.AddScoped<CarStationService>();
             services.AddScoped<StationAddressService>();
+            services.AddIdentityCore<AppUser>().AddRoles<IdentityRole>()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<AppUser, IdentityRole>>()
+                .AddEntityFrameworkStores<CarContext>().AddDefaultTokenProviders();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +72,7 @@ namespace Malacar
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -68,6 +80,8 @@ namespace Malacar
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

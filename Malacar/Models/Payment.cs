@@ -13,6 +13,6 @@ namespace Malacar.Models
 
         public DateTime Date { get; set; }
 
-        public User User { get; set; }
+        public AppUser User { get; set; }
     }
 }
