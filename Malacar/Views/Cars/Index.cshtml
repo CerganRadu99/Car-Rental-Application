@@ -46,6 +46,9 @@
                 <th>
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["PricedSortParm"]">@Html.DisplayNameFor(model => model.Price)</a>
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
 
                 <th></th>
             </tr>
@@ -54,6 +57,9 @@
 
             @foreach (var item in Model)
             {
+                
+                var photoPath = "~/Images/" + (item.ImagePath ?? "noimage.jpg");
+              
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Plate)
@@ -71,6 +77,9 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
+                      <img src="@photoPath" asp-append-version="true" />
+                    </td>
+
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.CarId"><img class="imgBtn" src="~/Images/pencil.png"></a>
@@ -81,8 +90,7 @@
                         {
                             <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.CarId">View Car</a>
                         }
-                    </td>
-
+                 
                 </tr>
             }
 

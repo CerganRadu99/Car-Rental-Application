@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Malacar", "Malacar\Malacar.csproj", "{C5A31900-1C00-41A6-B4D5-98D344CB2A6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalacarUnitTesting", "MalacarUnitTesting\MalacarUnitTesting.csproj", "{31EA23A8-564E-4351-AC3F-FFF4DB6EB1FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalacarUnitTesting", "MalacarUnitTesting\MalacarUnitTesting.csproj", "{58766552-BFAD-42AC-AEE0-3AAD0F830026}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,11 @@ Global
 		{C5A31900-1C00-41A6-B4D5-98D344CB2A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5A31900-1C00-41A6-B4D5-98D344CB2A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5A31900-1C00-41A6-B4D5-98D344CB2A6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31EA23A8-564E-4351-AC3F-FFF4DB6EB1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31EA23A8-564E-4351-AC3F-FFF4DB6EB1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31EA23A8-564E-4351-AC3F-FFF4DB6EB1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31EA23A8-564E-4351-AC3F-FFF4DB6EB1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{58766552-BFAD-42AC-AEE0-3AAD0F830026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58766552-BFAD-42AC-AEE0-3AAD0F830026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58766552-BFAD-42AC-AEE0-3AAD0F830026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58766552-BFAD-42AC-AEE0-3AAD0F830026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
