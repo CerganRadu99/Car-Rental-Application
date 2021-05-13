@@ -1,10 +1,10 @@
 ﻿using Malacar.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Malacar.ViewModels
 {
@@ -41,6 +41,8 @@ namespace Malacar.ViewModels
         public int DoorsNumber { get; set; }
 
         public double TimeBorrowed { get; set; }
+
+        public IFormFile Photo { get; set; }
 
         public List<SelectListItem> StationItems { get
             {
