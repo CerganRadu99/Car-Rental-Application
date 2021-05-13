@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Malacar.Migrations
 {
-    public partial class InitialAfterDropMig : Migration
+    public partial class InitialAfterDropMalacarDbb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -105,7 +105,8 @@ namespace Malacar.Migrations
                     Mileage = table.Column<int>(nullable: false),
                     RentedCounter = table.Column<int>(nullable: false),
                     DoorsNumber = table.Column<int>(nullable: false),
-                    TimeBorrowed = table.Column<double>(nullable: false)
+                    TimeBorrowed = table.Column<double>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

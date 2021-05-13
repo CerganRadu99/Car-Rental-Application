@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Malacar.Migrations
 {
     [DbContext(typeof(CarContext))]
-    [Migration("20210513124758_InitialAfterDropMig")]
-    partial class InitialAfterDropMig
+    [Migration("20210513134013_InitialAfterDropMalacarDbb")]
+    partial class InitialAfterDropMalacarDbb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -201,6 +201,9 @@ namespace Malacar.Migrations
 
                     b.Property<int>("DoorsNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");

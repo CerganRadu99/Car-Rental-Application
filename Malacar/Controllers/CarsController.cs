@@ -33,20 +33,20 @@ namespace Malacar.Controllers
 
         // GET: Cars
         [Authorize(Roles = "Administrator,User")]
-        public async IActionResult Index(string sortOrder, string searchString, int priceSearch)
+        public IActionResult Index(string sortOrder, string searchString, int priceSearch)
         {
             
             ViewData["BrandSortParm"] = String.IsNullOrEmpty(sortOrder) ? "brand_desc" : "";
             ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
             
-            var cars = _carService.GetCars();
+            var cars = (IEnumerable<Car>)_carService.GetCars();
             //var cars = from s in _context.Cars
                        //select s;
 
             if(!String.IsNullOrEmpty(searchString))
             {
                 cars = cars.Where(s => s.Brand.Contains(searchString)
-                || s.Plate.Contains(searchString)|| s.Motorization.Contains(searchString)||s.Model.Contains(searchString)||s.Color.Contains(searchString));
+                || s.Plate.Contains(searchString) || s.Motorization.Contains(searchString) || s.Model.Contains(searchString) || s.Color.Contains(searchString)).ToList();
             }
 
             switch(sortOrder)
@@ -64,7 +64,7 @@ namespace Malacar.Controllers
                     cars = cars.OrderBy(s => s.Brand);
                     break;
             }
-            return View(await cars.AsNoTracking().ToListAsync());
+            return View(cars);
         }
 
         // GET: Cars/Details/5

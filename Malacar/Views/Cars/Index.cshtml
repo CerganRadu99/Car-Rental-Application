@@ -50,7 +50,7 @@
                     @Html.DisplayNameFor(model => model.ImagePath)
                 </th>
 
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -77,9 +77,9 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                      <img src="@photoPath" asp-append-version="true" />
+                      <img src="@photoPath" asp-append-version="true" style="width:65px; height:42px;"/>
                     </td>
-
+                    <td>
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.CarId"><img class="imgBtn" src="~/Images/pencil.png"></a>
@@ -90,7 +90,7 @@
                         {
                             <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.CarId">View Car</a>
                         }
-                 
+                    </td>
                 </tr>
             }
 
