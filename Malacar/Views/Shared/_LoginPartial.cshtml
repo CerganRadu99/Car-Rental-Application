@@ -1,14 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
     {
         <li class="nav-item">
-            <a id="manage" class="btn btn-primary nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            <a id="manage" class="btn btn-primary nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:32px; height:32px; object-fit:cover;border-radius:30px;padding:0;margin:0" src="~/uploads/@UserManager.GetUserAsync(User).Result.ProfilePicture" /> @UserManager.GetUserAsync(User).Result.FirstName </a>
         </li>
         <li class="nav-item" style="margin-left:15px;">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -34,7 +34,7 @@
     else if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
     {
         <li class="nav-item">
-            <a id="manage" class="btn btn-primary nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            <a id="manage" class="btn btn-primary nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:30px; height:30px; object-fit:cover;border-radius:30px;padding:0;margin:0" src="~/uploads/@UserManager.GetUserAsync(User).Result.ProfilePicture" /> @UserManager.GetUserAsync(User).Result.FirstName </a>
         </li>
         <li class="nav-item" style="margin-left:15px;">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

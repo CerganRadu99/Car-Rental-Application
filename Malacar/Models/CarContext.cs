@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Malacar.Models
 {
-    public class CarContext : IdentityDbContext<IdentityUser>
+    public class CarContext : IdentityDbContext<AppUser>
     {
         public CarContext(DbContextOptions<CarContext> options):base(options)
         {

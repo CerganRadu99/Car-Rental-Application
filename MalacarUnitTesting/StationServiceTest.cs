@@ -170,7 +170,7 @@ namespace MalacarUnitTesting
             stationService.Save();
             List<Station> actualStations = stationService.GetStationsByCondition(station => station.StationId == 4);
             Station updatedStation = actualStations[0];
-            Assert.AreEqual("Sibiu", updatedStation.Name);
+            Assert.AreEqual("Constanta", updatedStation.Name);
             stationService.DeleteStation(stationToEdit);
             stationService.Save();
         }

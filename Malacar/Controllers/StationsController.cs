@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Malacar.Models;
 using Malacar.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Malacar.Controllers
 {
+    [Authorize(Roles = "Administrator,User")]
     public class StationsController : Controller
     {
         private readonly StationService _stationService;
@@ -20,6 +22,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Stations
+        [Authorize(Roles = "Administrator,User")]
         public IActionResult Index()
         {
             var stations = _stationService.GetStations();
@@ -27,6 +30,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Stations/Details/5
+        [Authorize(Roles = "Administrator,User")]
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Stations/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +71,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Stations/Edit/5
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -117,6 +123,7 @@ namespace Malacar.Controllers
         }
 
         // GET: Stations/Delete/5
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(int? id)
         {
             if (id == null)

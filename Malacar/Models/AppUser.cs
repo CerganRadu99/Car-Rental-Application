@@ -22,6 +22,8 @@ namespace Malacar.Models
 
         public int PenalizationPoints { get; set; }
 
+        public string ProfilePicture { get; set; }
+
         [Required]
         public string DrivingLicenceNo { get; set; }
 
@@ -30,5 +32,7 @@ namespace Malacar.Models
         public ICollection<Payment> Payments { get; set; }
 
         public ICollection<UserAddress> UserAddresses { get; set; }
+
+        
     }
 }

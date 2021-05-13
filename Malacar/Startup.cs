@@ -29,7 +29,7 @@ namespace Malacar
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<CarContext>();
 
             services.AddDbContext<CarContext>(options =>
@@ -47,6 +47,11 @@ namespace Malacar
             services.AddScoped<StationService>();
             services.AddScoped<CarStationService>();
             services.AddScoped<StationAddressService>();
+            services.AddIdentityCore<AppUser>().AddRoles<IdentityRole>()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<AppUser, IdentityRole>>()
+                .AddEntityFrameworkStores<CarContext>().AddDefaultTokenProviders();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
