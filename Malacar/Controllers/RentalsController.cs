@@ -1,7 +1,10 @@
 ﻿using Malacar.Models;
 using Malacar.Services;
+using Malacar.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -10,8 +13,11 @@ namespace Malacar.Controllers
     public class RentalsController : Controller
     {
         private readonly RentalService _rentalService;
-        public RentalsController(RentalService rentalService)
+        private readonly UserManager<AppUser> _user;
+
+        public RentalsController(RentalService rentalService, UserManager<AppUser> user)
         {
+            _user = user;
             _rentalService = rentalService;
         }
 
@@ -52,8 +58,22 @@ namespace Malacar.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("RentalId,Description,StartDate,EndDate,PickUpLocation,DropOffLocation")] Rental rental)
         {
+            // string userId = _user.GetUserId(User);
+            // rental.UserId = userId;
+            //Rental newRental = new Rental
+            //{
+            //    StartDate = newRental.StartDate,
+            //    EndDate = newRental.EndDate,
+            //    PickUpLocation = newRental.PickUpLocation,
+            //    DropOffLocation = newRental.DropOffLocation,
+            //    Car = newRental.Car,
+            //    User = rental.UserId,
+
+            //};
+
             if (ModelState.IsValid)
             {
+                //_rentalService.AddRental(newRental);
                 _rentalService.AddRental(rental);
                 _rentalService.Save();
                 return RedirectToAction(nameof(Index));

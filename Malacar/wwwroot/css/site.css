@@ -59,6 +59,28 @@ a {
     border-color: #1861ac;
 }
 
+.row .col-md-5 form {
+    border: 3px solid #F76C6C;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+    padding: 15px 40px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+    form .btn-primary {
+        color: #F76C6C !important;
+        background-color: #F8E9A1 !important;
+        border-color: #1861ac;
+        border-radius: 10px !important;
+    }
+
+        form .btn-primary:hover {
+            color: #F8E9A1 !important;
+            background-color: #F76C6C !important;
+            border-color: red;
+        }
+      
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -99,9 +121,10 @@ body {
   background-color:#A8D0E6;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #374785;
 }

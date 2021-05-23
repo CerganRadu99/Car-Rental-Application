@@ -13,11 +13,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <input asp-for="Photo" class="form-control custom-file-input" />
-                    <label asp-for="Photo" class="custom-file-label">Choose File...</label>
-                    <span asp-validation-for="Photo" class="text-danger"></span>
-                </div>
+
                 <div class="form-group">
                     <label asp-for="Plate" class="control-label"></label>
                     <input asp-for="Plate" class="form-control" />
@@ -42,6 +38,11 @@
                     <label asp-for="Price" class="control-label"></label>
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Photo" class="control-label">Choose Car Photo</label>
+                    <input asp-for="Photo" style="text-align:center; background-color:#24305E; border: 0;color:red;" class="form-control " />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-4">
@@ -105,7 +106,9 @@
                     </select>
                     <span asp-validation-for="SelectedStation" class="text-danger"></span>
                 </div>
+                
             </div>
+           
         </div>
         <div class="form-group form-check" style="margin-left:15px;">
             <label class="form-check-label">
