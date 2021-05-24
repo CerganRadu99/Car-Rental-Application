@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Malacar.Migrations
 {
     [DbContext(typeof(CarContext))]
-    [Migration("20210513134013_InitialAfterDropMalacarDbb")]
-    partial class InitialAfterDropMalacarDbb
+    [Migration("20210513141550_InitialMigrationAfterDrop")]
+    partial class InitialMigrationAfterDrop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

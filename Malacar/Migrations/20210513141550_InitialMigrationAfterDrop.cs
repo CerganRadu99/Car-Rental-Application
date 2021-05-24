@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Malacar.Migrations
 {
-    public partial class InitialAfterDropMalacarDbb : Migration
+    public partial class InitialMigrationAfterDrop : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
