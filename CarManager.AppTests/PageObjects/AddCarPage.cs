@@ -52,8 +52,8 @@ namespace CarManager.AppTests.PageObjects
             this.seatNumber.Clear();
             string seats = seatNumber.ToString();
             this.seatNumber.SendKeys(seats);
+          
 
-           
 
             saveButton.Click();
 

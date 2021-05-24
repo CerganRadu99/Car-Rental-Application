@@ -79,7 +79,7 @@
                     <td>
                       <img src="@photoPath" asp-append-version="true" style="width:65px; height:42px;"/>
                     </td>
-                    <td>
+                    <td class="randomClassOver">
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.CarId"><img class="imgBtn" src="~/Images/pencil.png"></a>

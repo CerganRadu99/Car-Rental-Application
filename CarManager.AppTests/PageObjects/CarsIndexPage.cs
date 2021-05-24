@@ -17,6 +17,7 @@ namespace CarManager.AppTests.PageObjects
         [FindsBy(How = How.XPath, Using = "/html/body/div/main/p/a")]
         private IWebElement addCarButton;
 
+
         public CarsIndexPage(IWebDriver driver)
         {
             webDriver = driver;
@@ -34,12 +35,35 @@ namespace CarManager.AppTests.PageObjects
             return new AddCarPage(webDriver);
         }
 
+        public RemoveCarPage GotoRemoveCarPage()
+        {
+            var elements = carIndexList.FindElements(By.TagName("tr"));
+            var nr = elements.Count();
+            carIndexList.FindElement(By.XPath("/html/body/div/main/div/table/tbody/tr[" + (nr - 1) + "]/td[7]/a[3]")).Click();
+            return new RemoveCarPage(webDriver);
+        }
+
+        public bool CheckCarWasDeleted(string carPlate)
+        {
+            //var trs = carForDeleteIndex.FindElements(By.TagName("tr"));
+            ////var tds = carForDeleteIndex.FindElements(By.TagName("td"));
+            ////IWebElement originalTd = (IWebElement)tds.Where(element => element.Text.Equals(carPlate));
+            //IWebElement originalTr = (IWebElement)trs.Where(element => element.Text.Equals(carPlate));
+            //originalTr.FindElement(By.XPath("td[6]")).Click();
+
+            //carForDeleteIndex.FindElement(By.XPath("//div/table/tbody/tr[contains(text(),'DJ60BQN')/td[contains(@class,'randomClassOver')]/a[3]")).Click();
+            var elements = carIndexList.FindElements(By.TagName("td"));
+            return elements.Where(element => element.Text.Equals(carPlate)).Count() == 0;
+
+
+        }
+
         public bool CarExists(string carPlate)
         {
             var elements = carIndexList.FindElements(By.TagName("td"));
             return elements.Where(element => element.Text.Equals(carPlate)).Count() > 0;
         }
 
-        
+        ///html/body/div/main/div/table/tbody/tr[2]/td[7]/a[3]
     }
 }

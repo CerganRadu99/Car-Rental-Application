@@ -17,7 +17,7 @@ namespace CarManager.AppTests
             webDriver = new ChromeDriver();
         }
         [TestMethod]
-        public void TestMethod1()
+        public void TestIfCarIsAdded()
         {
             //driver.Navigate().GoToUrl("https://localhost:44335/");
             //IWebElement loginPageLink = driver.FindElement(By.LinkText("Login"));
@@ -48,6 +48,32 @@ namespace CarManager.AppTests
             addCarPage.Save(carPlate, "Compact", "Blue", 5, "Sibiu");
            
             Assert.IsTrue(indexPage.CarExists(carPlate));
+        }
+
+        [TestMethod]
+        public void delete()
+        {
+            Random randomCarPlate = new Random();
+            var firstL = Convert.ToChar(randomCarPlate.Next(65, 90));
+            var secondL = Convert.ToChar(randomCarPlate.Next(65, 90));
+            var thirdL = Convert.ToChar(randomCarPlate.Next(65, 90));
+            string carPlate = "DJ" + randomCarPlate.Next(10, 99) + firstL + secondL + thirdL;
+
+            HomePage homePage = new HomePage(webDriver);
+            homePage.GoToPage();
+            LoginPage loginPage = homePage.GoToLoginPage();
+            loginPage.Login("admin@gmail.com", "Abc123!");
+
+            CarsIndexPage indexPage = new CarsIndexPage(webDriver);
+            indexPage.GoToPage();
+            AddCarPage addCarPage = indexPage.GotoAddCarPage();
+            addCarPage.Save(carPlate, "Compact", "Blue", 5, "Sibiu");
+
+            RemoveCarPage removeCarPage = indexPage.GotoRemoveCarPage();
+            removeCarPage.Delete();
+
+            Assert.IsTrue(indexPage.CheckCarWasDeleted(carPlate));
+            
         }
 
         [TestCleanup]
